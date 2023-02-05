@@ -1,0 +1,41 @@
+<div
+  class="border pad"
+  *ngIf="isLoggedIn && !showDeleteItem"
+  style="width: 19rem"
+>
+  <div class="card" style="width: 18rem">
+    <div class="card-header">
+      <h4 class="text-center">Department Details</h4>
+    </div>
+    <div class="card-body" *ngIf="department$ | async as department">
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item">Name: {{ department.name }}</li>
+      </ul>
+    </div>
+
+    <div class="card-footer">
+      <button
+        type="submit"
+        class="btn btn-outline-primary form-control m-1"
+        (click)="backToList()"
+      >
+        Back
+      </button>
+      <button
+        type="submit"
+        class="btn btn-outline-danger form-control m-1"
+        (click)="toDelete()"
+      >
+        Delete
+      </button>
+    </div>
+  </div>
+</div>
+
+<app-delete-item
+  *ngIf="showDeleteItem"
+  [deleteTitle]="deleteTitle"
+  [deleteMessage]="deleteMessage"
+  (onDeleteItem)="deleteDepartment($event)"
+>
+</app-delete-item>

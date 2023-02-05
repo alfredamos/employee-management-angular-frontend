@@ -1,0 +1,48 @@
+<div class="border" style="padding: 10px" *ngIf="isLoggedIn">
+  <div class="card">
+    <div class="card-header">
+      <h4 class="text-center">Department List</h4>
+    </div>
+    <div class="card-body">
+    <table
+      class="table table-bordered table-responsive table-striped"      
+    >
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th *ngIf="isAdmin">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let department of departments$ | async">
+          <td>
+            <a
+              routerLink="/detail-department/{{ department.id }}"
+              style="text-decoration: none"
+              >{{ department.name }}</a
+            >
+          </td>
+          <td *ngIf="isAdmin">
+            <a
+              type="button"
+              class="btn btn-outline-warning m-1"
+              (click)="onDepartmentEdit(department.id)"
+              >Edit</a
+            >
+            <button
+              type="button"
+              class="btn btn-outline-danger m-1"
+              (click)="onDepartmentDelete(department.id)"
+            >
+              Delete
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="card-footer" *ngIf="isAdmin">
+    <button type="button" class="btn btn-outline-secondary form-control" (click)="addDepartment()">Create Department</button>
+  </div>
+  </div>
+</div>

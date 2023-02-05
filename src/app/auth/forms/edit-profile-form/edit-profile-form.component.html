@@ -1,0 +1,89 @@
+<div class="border wita">
+  <div class="card">
+    <form [formGroup]="editProfileForm" (ngSubmit)="editProfileSubmit()">
+      <div class="card-header">
+        <h4 class="text-center">Edit Profile Form</h4>
+      </div>
+      <div class="card-body">
+        <div class="mb-3">
+          <label class="form-label" for="fullName">Name</label>
+          <input
+            id="fullName"
+            type="text"
+            formControlName="fullName"
+            class="form-control"
+          />
+        </div>
+        <div class="mb-3">
+          <label class="form-label" for="email">Email</label>
+          <input
+            id="email"
+            type="email"
+            formControlName="email"
+            class="form-control"
+          />
+        </div>
+        <div class="mb-3">
+          <label class="form-label" for="phone">Phone</label>
+          <input
+            id="phone"
+            type="tel"
+            formControlName="phone"
+            class="form-control"
+          />
+        </div>
+        <div class="mb-3">
+          <label class="form-label" for="password">Password</label>
+          <input
+            id="password"
+            type="password"
+            formControlName="password"
+            class="form-control"
+          />
+        </div>
+        <div class="mb-3">
+          <label class="form-label" for="newPassword">New Password</label>
+          <input
+            id="newPassword"
+            type="password"
+            formControlName="newPassword"
+            class="form-control"
+          />
+        </div>
+        <div class="mb-3">
+          <label class="form-label" for="dateOfBirth">Birthday</label>
+          <input
+            id="dateOfBirth"
+            type="text"
+            formControlName="dateOfBirth"
+            class="form-control"
+          />
+        </div>
+        <div class="mb-3">
+          <label for="gender" class="form-label">Gender</label>
+          <select id="gender" formControlName="gender" class="form-select">
+            <option value="Female">Female</option>
+            <option value="Male">Male</option>
+          </select>
+        </div>
+        <div class="mb-3">
+          <label for="departmentId" class="form-label">Department</label>
+          <select id="departmentId" formControlName="departmentId" class="form-select">
+            <option *ngFor="let department of departments$ | async" [id]="department.id" [value]="department.id">{{department.name}}</option>
+            
+          </select>
+        </div>
+      </div>
+      <div class="card-footer">
+        <button type="submit" class="btn btn-outline-primary form-control m-1">Submit</button>
+        <button
+          type="button"
+          (click)="backToList()"
+          class="btn btn-outline-secondary form-control m-1"
+        >
+          Back
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

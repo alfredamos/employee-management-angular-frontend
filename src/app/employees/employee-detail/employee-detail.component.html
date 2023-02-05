@@ -1,0 +1,27 @@
+<div class="border pad"
+  *ngIf="isLoggedIn"
+  style="width: 19rem"
+>
+  <div class="card" style="width: 17">
+    <div class="card-header">
+      <h4 class="text-center">Employee Details</h4>
+    </div>
+    <div class="card-body"  *ngIf="employee$ | async as employee">
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item">Name: {{ employee.fullName }}</li>
+        <li class="list-group-item">Email: {{ employee.email }}</li>
+        <li class="list-group-item">Phone: {{ employee.phone }}</li>
+        <li class="list-group-item">Gender: {{ employee.gender }}</li>
+        <li class="list-group-item">Birthday: {{ employee.dateOfBirth.toString().substring(0,10) }}</li>
+        <li class="list-group-item">Department: {{ employee.department?.name }}</li>
+      </ul>
+    </div>
+
+    <div class="card-footer">
+      <button type="submit" class="btn btn-outline-primary form-control" (click)="backToList()">
+        Back
+      </button>
+    </div>
+  </div>
+</div>
+

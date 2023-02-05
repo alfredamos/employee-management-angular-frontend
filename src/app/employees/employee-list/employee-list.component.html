@@ -1,0 +1,52 @@
+<div class="border" style="padding: 10px" *ngIf="isLoggedIn">
+  <div class="card">
+    <div class="card-header">
+      <h4 class="text-center">Employee List</h4>
+    </div>
+    <div class="card-body">
+      <table
+        class="table table-bordered table-responsive table-striped"
+        *ngIf="authUser.isLoggedIn"
+      >
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Gender</th>
+            <th>Birthday</th>
+            <th>Department</th>
+            <th *ngIf="isAdmin">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let employee of employees$ | async">
+            <td>
+              <a
+                routerLink="/detail-employee/{{ employee.id }}"
+                style="text-decoration: none"
+                >{{ employee.fullName }}</a
+              >
+            </td>
+            <td>{{ employee.email }}</td>
+            <td>{{ employee.phone }}</td>
+            <td>{{ employee.gender }}</td>
+            <td>{{ employee.dateOfBirth.toString().substring(0, 10) }}</td>
+            <td>{{ employee.department?.name }}</td>
+            <td *ngIf="isAdmin">
+              <button
+                type="button"
+                class="btn btn-outline-danger m-1"
+                (click)="onEmployeeDelete(employee.id)"
+              >
+                Delete
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    
+  </div>
+</div>
+<app-logout-feedback *ngIf="!isLoggedIn"> </app-logout-feedback>

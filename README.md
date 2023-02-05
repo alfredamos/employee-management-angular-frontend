@@ -1,4 +1,16 @@
-# EmployeementManagementAngularFrontend
+# Employee-Management-Angular-Frontend
+
+## Employment Management System with Angular frontend
+
+## it comprises of two modules, namely, Department and Employee
+
+## With NestJs backend with Authentication and authorization
+
+## The auth module has five components, namely, login, logout, signup, edit-employee-profile and change-password
+
+## Navigation routing module
+
+## Reactive Angular programming paradigm with observables
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.2.6.
 

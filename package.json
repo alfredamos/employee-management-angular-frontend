@@ -1,9 +1,9 @@
 {
-  "name": "employeement-management-angular-frontend",
+  "name": "employee-management-angular-frontend",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "ng serve --watch -o",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"

@@ -1,0 +1,10 @@
+.wita{
+  padding: 10px;
+}
+
+.active{
+  color: red;
+}
+.active:hover{
+  color: rgb(50, 23, 62);
+}

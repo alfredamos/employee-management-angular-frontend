@@ -1,0 +1,17 @@
+<ul class="nav justify-content-end wita">
+  <li class="nav-item">
+    <a class="nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact:
+true}" routerLink="/">Home</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" routerLinkActive="active" routerLink="/departments">Departments</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" routerLink="/login" routerLinkActive="active" *ngIf="!authUser.isLoggedIn"
+      >Login</a
+    >
+  </li>
+  <li class="nav-item" *ngIf="authUser.isLoggedIn">
+    <a class="nav-link" routerLink="/"  (click)="logout()">Logout</a>
+  </li>
+</ul>
