@@ -3,7 +3,6 @@ import { DepartmentService } from '../../../services/departments/department.serv
 import { Router } from '@angular/router';
 import { AuthService } from 'src/services/auth/auth.service';
 import { UserType } from 'src/models/enums/user-type.model';
-import { EmployeeProfile } from 'src/models/auth/employee-profile.model';
 
 @Component({
   selector: 'app-department-list',
@@ -12,8 +11,7 @@ import { EmployeeProfile } from 'src/models/auth/employee-profile.model';
 })
 export class DepartmentListComponent implements OnInit {
   isAdmin!: boolean;
-  isLoggedIn!: boolean;
-  authUser!: EmployeeProfile;
+  isLoggedIn = false;
   departments$ = this.departmentSerVice.departments$;
 
   constructor(
@@ -24,11 +22,10 @@ export class DepartmentListComponent implements OnInit {
 
   ngOnInit() {
     this.authService.authUserAction$.subscribe((authUser) => {
-      this.authUser = authUser;
       this.isAdmin = authUser.userType === UserType.Admin;
       this.isLoggedIn = authUser.isLoggedIn!;
     });
-    
+
   }
 
   onDepartmentDelete(id: string) {

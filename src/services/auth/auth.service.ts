@@ -16,6 +16,9 @@ import { UserType } from 'src/models/enums/user-type.model';
 export class AuthService {
   private authUser = new BehaviorSubject(this.initialAuthUser());
   authUserAction$ = this.authUser.asObservable();
+  isLoggedIn = false;
+  ownerId = "";
+  userType = UserType.Staff;
 
   constructor(private http: HttpClient) {}
 
@@ -64,7 +67,10 @@ export class AuthService {
       .pipe(
         tap((user) => {
           localStorage.setItem('token', user.token!);
-          this.getAuthUser(user);
+          this.isLoggedIn = user.isLoggedIn!;
+          this.userType = user.userType;
+          this.ownerId = user.id;
+          this.getAuthUser$(user);
         })
       )
       .pipe(
@@ -88,12 +94,12 @@ export class AuthService {
   }
 
 
-  getAuthUser(value: EmployeeProfile): void {
+  getAuthUser$(value: EmployeeProfile): void {
     this.authUser.next(value);
   }
 
   logout(user: EmployeeProfile): void {
-    this.getAuthUser(user);
+    this.getAuthUser$(user);
     localStorage.setItem('token', user.token!);
   }
 
@@ -112,6 +118,6 @@ export class AuthService {
 
   private errorCatcher(err: any){
     console.log({errMessage: err.message});
-    this.getAuthUser(this.initialAuthUser());
+    this.getAuthUser$(this.initialAuthUser());
   }
 }

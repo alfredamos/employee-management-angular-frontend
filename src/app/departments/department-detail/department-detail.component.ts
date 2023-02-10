@@ -1,21 +1,21 @@
-import { Component, OnInit } from "@angular/core";
+import { Component} from "@angular/core";
 import { combineLatest, map } from 'rxjs';
 import { Router, ActivatedRoute } from '@angular/router';
 import { DepartmentService } from 'src/services/departments/department.service';
-import { AuthService } from '../../../services/auth/auth.service';
 
 @Component({
   selector: 'app-department-detail',
   templateUrl: './department-detail.component.html',
   styleUrls: ['./department-detail.component.css'],
 })
-export class DepartmentDetailComponent implements OnInit{
+export class DepartmentDetailComponent{
   id: string = '';
   isLoggedIn!: boolean;
-  routeParam$ = this.route.paramMap;
-  departments$ = this.departmentService.departments$;
-
-  department$ = combineLatest([this.routeParam$, this.departments$]).pipe(
+  
+  department$ = combineLatest([
+    this.route.paramMap,
+    this.departmentService.departments$,
+  ]).pipe(
     map(([routeParam, departments]) => {
       const id = routeParam.get('id');
       this.id = id!;
@@ -26,15 +26,9 @@ export class DepartmentDetailComponent implements OnInit{
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private departmentService: DepartmentService,
-    private authService: AuthService
-  ) {
+    private departmentService: DepartmentService,   
+  ) {}
 
-  }
-
-  ngOnInit(): void {
-    this.authService.authUserAction$.subscribe(authUser => this.isLoggedIn = authUser.isLoggedIn!)
-  }
 
   backToList() {
     this.router.navigate(['/departments']);

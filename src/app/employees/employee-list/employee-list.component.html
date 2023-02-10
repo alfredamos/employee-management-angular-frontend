@@ -4,10 +4,7 @@
       <h4 class="text-center">Employee List</h4>
     </div>
     <div class="card-body">
-      <table
-        class="table table-bordered table-responsive table-striped"
-        *ngIf="authUser.isLoggedIn"
-      >
+      <table class="table table-bordered table-responsive table-striped">
         <thead>
           <tr>
             <th>Name</th>
@@ -46,7 +43,7 @@
         </tbody>
       </table>
     </div>
-    
   </div>
 </div>
-<app-logout-feedback *ngIf="!isLoggedIn"> </app-logout-feedback>
+
+

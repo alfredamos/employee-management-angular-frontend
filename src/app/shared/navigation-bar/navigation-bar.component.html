@@ -1,3 +1,4 @@
+<div class="gapo mt-3">
 <ul class="nav justify-content-end wita">
   <li class="nav-item">
     <a class="nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact:
@@ -12,6 +13,18 @@ true}" routerLink="/">Home</a>
     >
   </li>
   <li class="nav-item" *ngIf="authUser.isLoggedIn">
-    <a class="nav-link" routerLink="/"  (click)="logout()">Logout</a>
+    <a class="nav-link" routerLink="/logout"  (click)="logout()">Logout</a>
   </li>
+  <div class="dropdown" *ngIf="authUser.isLoggedIn">
+  <a class="btn btn-link dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+    Settings
+  </a>
+
+  <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+    <li><a class="dropdown-item" routerLink="/change-password">Change Password</a></li>
+    <li><a class="dropdown-item" routerLink="/edit-profile">Edit profile</a></li>
+
+  </ul>
+</div>
 </ul>
+</div>

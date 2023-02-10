@@ -3,7 +3,6 @@ import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
 import { combineLatest, map } from 'rxjs';
 import { EmployeeDto } from 'src/models/employees/employee.model';
-import { AuthService } from 'src/services/auth/auth.service';
 import { EmployeeService } from 'src/services/employees/employee.service';
 import { SharedService } from 'src/services/shared/shared.service';
 
@@ -14,18 +13,18 @@ import { SharedService } from 'src/services/shared/shared.service';
 })
 export class DeleteEmployeeComponent implements OnInit {
   id: string = '';
-  isLoggedIn!: boolean;
   showDeleteItem!: boolean;
-  employees: EmployeeDto[] = [];
+  employeeList: EmployeeDto[] = [];
   deleteMessage = '';
   deleteTitle = 'Delete Employee';
-  routeParam$ = this.route.paramMap;
-  employees$ = this.employeeService.employees$;
 
-  employee$ = combineLatest([this.routeParam$, this.employees$]).pipe(
+  employee$ = combineLatest([
+    this.route.paramMap,
+    this.employeeService.employees$,
+  ]).pipe(
     map(([routeParam, employees]) => {
       this.id = routeParam.get('id') ?? '';
-      this.employees = employees;
+      this.employeeList = employees;
       return employees.find((employee) => employee.id === this.id);
     })
   );
@@ -34,14 +33,10 @@ export class DeleteEmployeeComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private employeeService: EmployeeService,
-    private authService: AuthService,
     private sharedService: SharedService
   ) {}
 
   ngOnInit() {
-    this.authService.authUserAction$.subscribe(
-      (authUser) => (this.isLoggedIn = authUser.isLoggedIn!)
-    );
     this.sharedService.showDeleteItemAction$.subscribe(
       (showItem) => (this.showDeleteItem = showItem)
     );
@@ -59,11 +54,11 @@ export class DeleteEmployeeComponent implements OnInit {
     if (value) {
       console.log('value : ', value);
       console.log('id : ', this.id);
-      const filteredEmployees = this.employees.filter(
+      const filteredEmployeeList = this.employeeList.filter(
         (employee) => employee.id !== this.id
       );
       this.employeeService.remove(this.id).subscribe((employee) => {
-        this.employeeService.getEmployees$(filteredEmployees);
+        this.employeeService.getEmployees$(filteredEmployeeList);
         this.router.navigate(['/']);
       });
     } else {

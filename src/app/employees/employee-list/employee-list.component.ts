@@ -2,7 +2,6 @@ import { Component, OnInit} from '@angular/core';
 import { EmployeeService } from '../../../services/employees/employee.service';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/services/auth/auth.service';
-import { EmployeeProfile } from 'src/models/auth/employee-profile.model';
 import { UserType } from 'src/models/enums/user-type.model';
 
 @Component({
@@ -11,9 +10,8 @@ import { UserType } from 'src/models/enums/user-type.model';
   styleUrls: ['./employee-list.component.css'],
 })
 export class EmployeeListComponent implements OnInit{
-  authUser!: EmployeeProfile;
   isAdmin!: boolean;
-  isLoggedIn!: boolean;
+  isLoggedIn = false;
   employees$ = this.employeeService.employees$;
 
   constructor(
@@ -24,11 +22,10 @@ export class EmployeeListComponent implements OnInit{
 
   ngOnInit(){
     this.authService.authUserAction$.subscribe(authUser => {
-      this.authUser = authUser;
       this.isAdmin = authUser.userType === UserType.Admin;
       this.isLoggedIn = authUser.isLoggedIn!;
-      
     })
+
   }
 
   onEmployeeDelete(id: string) {
@@ -37,5 +34,5 @@ export class EmployeeListComponent implements OnInit{
   onEmployeeDetail(id: string) {
     this.router.navigate(['/employee-detail', id]);
   }
- 
+
 }

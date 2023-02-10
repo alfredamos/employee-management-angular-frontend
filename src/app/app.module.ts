@@ -9,7 +9,7 @@ import { SharedModule } from './shared/shared.module';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavigationBarComponent } from './shared/navigation-bar/navigation-bar.component';
-import { AuthInterceptor } from './guards/auth-interceptor.guard';
+import { AuthInterceptor } from './interceptors/auth.interceptor';
 
 @NgModule({
   declarations: [AppComponent, NavigationBarComponent],

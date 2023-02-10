@@ -27,6 +27,7 @@ export class LoginComponent {
     console.log('Login input : ', { loginDto });
 
     this.authService.login(loginDto).subscribe((authLoginUser) => {
+      //this.authService.getAuthUser$(authLoginUser);
       this.router.navigate(['/']);
     });
 

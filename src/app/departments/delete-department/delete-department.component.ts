@@ -15,19 +15,19 @@ import { DepartmentDto } from 'src/models/departments/department.model';
 export class DeleteDepartmentComponent implements OnInit {
   id: string = '';
   showDeleteItem = false;
-  departments: DepartmentDto[] = [];
+  departmentList: DepartmentDto[] = [];
   deleteTitle = 'Delete Department';
   deleteMessage = '';
   isLoggedIn!: boolean;
 
-  routeParam$ = this.route.paramMap;
-  departments$ = this.departmentService.departments$;
-
-  department$ = combineLatest([this.routeParam$, this.departments$]).pipe(
+  department$ = combineLatest([
+    this.route.paramMap,
+    this.departmentService.departments$,
+  ]).pipe(
     map(([routeParam, departments]) => {
       const id = routeParam.get('id');
       this.id = id!;
-      this.departments = departments;
+      this.departmentList = departments;
       return departments.find((department) => department.id === id);
     })
   );
@@ -36,14 +36,10 @@ export class DeleteDepartmentComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private departmentService: DepartmentService,
-    private sharedService: SharedService,
-    private authService: AuthService
+    private sharedService: SharedService
   ) {}
 
   ngOnInit() {
-    this.authService.authUserAction$.subscribe(
-      (authUser) => (this.isLoggedIn = authUser.isLoggedIn!)
-    );
     this.sharedService.showDeleteItemAction$.subscribe(
       (showItem) => (this.showDeleteItem = showItem)
     );
@@ -59,9 +55,7 @@ export class DeleteDepartmentComponent implements OnInit {
   deleteDepartment(value: boolean) {
     this.sharedService.showNextItem(value);
     if (value) {
-      console.log('value : ', value);
-      console.log('id : ', this.id);
-      const filteredDepartments = this.departments.filter(
+      const filteredDepartments = this.departmentList.filter(
         (department) => department.id !== this.id
       );
       this.departmentService.remove(this.id).subscribe((department) => {

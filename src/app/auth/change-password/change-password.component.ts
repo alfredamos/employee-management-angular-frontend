@@ -16,20 +16,17 @@ export class ChangePasswordComponent {
     private authService: AuthService,
     private router: Router,
     fb: FormBuilder
-    ) { 
+    ) {
       this.changePasswordForm = fb.group({
         email: [''],
         oldPassword: [''],
         newPassword: [''],
         confirmPassword: ['']
       });
-    }  
+    }
 
     changePasswordSubmit(changePasswordDto: ChangePasswordDto){
-      this.authService.changePassword(changePasswordDto).subscribe(auth => {
-        console.log({auth});
-        
-      });
+      this.authService.changePassword(changePasswordDto).subscribe();
       this.router.navigate(['/']);
     }
 

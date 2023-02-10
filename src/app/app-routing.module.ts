@@ -13,22 +13,27 @@ import { EditDepartmentComponent } from './departments/edit-department/edit-depa
 import { CreateDepartmentComponent } from './departments/create-department/create-department.component';
 import { DeleteEmployeeComponent } from './employees/delete-employee/delete-employee.component';
 import { EmployeeDetailComponent } from './employees/employee-detail/employee-detail.component';
+import { LoginGuard } from './guards/login.guard';
+import { RoleGuard } from './guards/role.guard';
+import { OwnerGuard } from './guards/owner.guard';
+import { HomeComponent } from './shared/home/home.component';
 
 const routes: Routes = [
-  { path: '', component: EmployeeListComponent }, 
-  { path: 'delete-employee/:id', component: DeleteEmployeeComponent },
-  { path: 'detail-employee/:id', component: EmployeeDetailComponent }, 
+  {path: 'home', component:HomeComponent},
+  { path: '', component: EmployeeListComponent, canActivate: [LoginGuard] },
+  { path: 'delete-employee/:id', component: DeleteEmployeeComponent, canActivate: [LoginGuard, RoleGuard] },
+  { path: 'detail-employee/:id', component: EmployeeDetailComponent, canActivate: [LoginGuard, OwnerGuard]},
 
-  {path: 'departments', component: DepartmentListComponent},
-  {path: 'detail-department/:id', component: DepartmentDetailComponent},
-  {path: 'delete-department/:id', component: DeleteDepartmentComponent},
-  {path: 'edit-department/:id', component: EditDepartmentComponent},
-  {path: 'create-department', component: CreateDepartmentComponent},
+  {path: 'departments', component: DepartmentListComponent, canActivate: [LoginGuard]},
+  {path: 'detail-department/:id', component: DepartmentDetailComponent, canActivate: [LoginGuard]},
+  {path: 'delete-department/:id', component: DeleteDepartmentComponent, canActivate: [LoginGuard, RoleGuard]},
+  {path: 'edit-department/:id', component: EditDepartmentComponent, canActivate: [LoginGuard, RoleGuard]},
+  {path: 'create-department', component: CreateDepartmentComponent, canActivate: [LoginGuard, RoleGuard]},
 
-  { path: 'change-password', component: ChangePasswordComponent },
-  { path: 'edit-profile', component: EditProfileComponent },
+  { path: 'change-password', component: ChangePasswordComponent, canActivate: [LoginGuard]},
+  { path: 'edit-profile', component: EditProfileComponent, canActivate: [LoginGuard, OwnerGuard]},
   { path: 'login', component: LoginComponent },
-  { path: 'logout', component: LogoutComponent },
+  { path: 'logout', component: LogoutComponent, canActivate: [LoginGuard]},
   { path: 'signup', component: SignupComponent },
 ];
 

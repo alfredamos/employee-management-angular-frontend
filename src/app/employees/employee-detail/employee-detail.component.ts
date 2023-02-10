@@ -1,8 +1,7 @@
-import { Component, OnInit} from '@angular/core';
+import { Component} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
 import { combineLatest, map } from 'rxjs';
-import { AuthService } from 'src/services/auth/auth.service';
 import { EmployeeService } from 'src/services/employees/employee.service';
 
 @Component({
@@ -10,13 +9,14 @@ import { EmployeeService } from 'src/services/employees/employee.service';
   templateUrl: './employee-detail.component.html',
   styleUrls: ['./employee-detail.component.css'],
 })
-export class EmployeeDetailComponent implements OnInit{
+export class EmployeeDetailComponent {
   id: string = '';
   isLoggedIn!: boolean;
-  routeParam$ = this.route.paramMap;
-  employees$ = this.employeeService.employees$;
 
-  employee$ = combineLatest([this.routeParam$, this.employees$]).pipe(
+  employee$ = combineLatest([
+    this.route.paramMap,
+    this.employeeService.employees$,
+  ]).pipe(
     map(([routeParam, employees]) => {
       const id = routeParam.get('id');
       this.id = id!;
@@ -27,15 +27,8 @@ export class EmployeeDetailComponent implements OnInit{
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private employeeService: EmployeeService,
-    private authService: AuthService
+    private employeeService: EmployeeService,   
   ) {}
-
-  ngOnInit(){
-    this.authService.authUserAction$.subscribe(
-      (authUser) => (this.isLoggedIn = authUser.isLoggedIn!)
-    );
-  }
 
   backToList() {
     this.router.navigate(['/']);

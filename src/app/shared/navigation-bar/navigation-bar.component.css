@@ -2,6 +2,33 @@
   padding: 10px;
 }
 
+
+
+li{
+  color: rebeccapurple;
+}
+
+a:link{
+  text-decoration: none;
+
+}
+
+.gapo{
+  border-top: 1px solid lightblue;
+  border-bottom: 1px solid lightblue;
+  background-color: azure;
+
+
+}
+
+.nav-link, .btn-link{
+  color: rebeccapurple;
+}
+
+.nav-link:hover{
+  color: red;
+}
+
 .active{
   color: red;
 }

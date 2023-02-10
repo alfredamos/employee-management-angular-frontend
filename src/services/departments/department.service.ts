@@ -103,6 +103,6 @@ export class DepartmentService {
 
   private errorCatcher(err: any) {
     console.log({ errMessage: err.message });
-    this.authService.getAuthUser(this.initialAuthUser());
+    this.authService.getAuthUser$(this.initialAuthUser());
   }
 }
